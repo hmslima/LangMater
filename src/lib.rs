@@ -1,3 +1,5 @@
+use std::fs::File;
+use std::io::Write;
 use rand::Rng;
 
 #[derive(Debug)]
@@ -238,4 +240,24 @@ pub fn generate_word(pattern: &Vec<Sound>, antipatterns: &Vec<Vec<Sound>>) -> St
     }
 
     new_word
+}
+
+pub fn show_results_on_console(pattern: &Vec<Sound>, antipatterns: &Vec<Vec<Sound>>) {
+    for _n in 1..30 {
+        let new_word = String::from(generate_word(&pattern, &antipatterns));
+
+        println!("> {}", new_word);
+    }
+}
+
+pub fn save_result(pattern: &Vec<Sound>, antipatterns: &Vec<Vec<Sound>>) {
+
+    let mut content = String::new();
+
+    for _n in 1..30 {
+        content.push_str(&(generate_word(&pattern, &antipatterns) + "\n"));
+    }
+
+    let mut file = File::create("words.txt").expect("Unable to create file");
+    file.write_all(content.as_bytes()).expect("Unable to write data");
 }

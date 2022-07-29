@@ -19,10 +19,7 @@ fn main() {
     let pattern = parse_pattern(&raw_pattern, &raw_strings);
     let antipatterns = parse_antipatterns(&raw_antipatterns, &raw_strings);
 
-    for _n in 1..30 {
-        let new_word = String::from(generate_word(&pattern, &antipatterns));
-
-        println!("> {}", new_word);
-    }
+    show_results_on_console(&pattern, &antipatterns);
+    save_result(&pattern, &antipatterns);
 
 }
